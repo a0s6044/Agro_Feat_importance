@@ -1,9 +1,7 @@
 # Feature Importance and Harvest Prediction in Agriculture 
 
-<h4>Overview of fields to be analyzed. Heddinge, Sweden 2019
-</h4>
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/bb_hed_fields.png" width="700" height="500">
-
+<h4>Fig. Overview of fields to be analyzed. Heddinge, Sweden 2019. </h4>
 
 
 ### Combining Sentinel 2 (all bands + computed indexes), soil, field, weather to predict harvest. 
@@ -25,13 +23,6 @@ The above time and spatial data specifications can easily be extended to much la
 
 ## Order of files to be run for processing the data and subsequent training
 
-We now discuss the work-flow for this project. we first need to produce bounding boxes around all the soil coordinates provided in the chosen region (e.g. Heddinge). This is done with file storeSoilCenters.ipynb. The resulting file of soil coordinate centers is then used by the file cut_out_bb.py to cut out small bounding boxes from the image file slope.tiff. All these bounding boxes are stored in individual numpy arrays for later processing. Then file 3, downSent2.ipynb is run in order to download Sentinel 2 data from the region of interest which are then stored in newly created subdirectories for later processing. Finaly file 4, inpVecVPN_Sent2_Aug31.ipynb is run which does all the data processing and eventual trainding. Specifically it: a) reads the file centers.txt containing the soil coordinates and uploads the numpy arrays (i.e. the bounding boxes cut out of the slope.tiff image) and creates a feature in our input vector; b) reads in all the soil, harvest, field and weather data via VPN from t-kartor service; c) processes all data from part b to extract spatial and temporal features and stores them into the input vector dataframe; d) loads the images and bands already stored into the subdirectories e) processes these and extract spatial and temporal features which are also stored into the input vector dataframe. A coorelation matrix is also created between the input features.
-
-Once all of the input vector dataframe has been built the training starts. This is done with decision trees using a k-fold method. Subsequently SHAP importance values are produced and a mean absolute SHAP values is computed among some 260 features.
-
-![SHAP value](shap_bar_plot1.jpg?raw=true)
-![Mean Absolute of SHAP](shap_bar_plot2.jpg?raw=true)
-
 Files must be run in the following order:
 
     1. storeSoilCenters.ipynb on AgricultureProject (AP) dir creates the centers.txt from soil data
@@ -39,8 +30,23 @@ Files must be run in the following order:
     3. downSent2.ipynb on eo-learn-master/examples/crop-type-classification creates eopatches of AOI and in particular respective npy files of 13 bands for that region over same timeframe (see dates below) as required in this file here.
     4. inpVecVPN_Sent2_Aug31.ipynb to import all the data, do the data clearning and training and finally produce the harvest prediction.
 
+#### (Note: extensive descriptions are provided within each cell of the notebook files. So specific information of what is done can be found there.)
+
+We now outline the work-flow for this project. 
+
+We first need to produce bounding boxes around all the soil coordinates provided in the chosen region (e.g. Heddinge). This is done with file storeSoilCenters.ipynb. 
+
+The resulting file of soil coordinate centers is then used by the file cut_out_bb.py to cut out small bounding boxes from the image file slope.tiff. All these bounding boxes are stored in individual numpy arrays for later processing. 
+
+Then file 3, downSent2.ipynb is run in order to download Sentinel 2 data from the region of interest which are then stored in newly created subdirectories for later processing. Finaly file 4, inpVecVPN_Sent2_Aug31.ipynb is run which does all the data processing and eventual trainding. Specifically it: a) reads the file centers.txt containing the soil coordinates and uploads the numpy arrays (i.e. the bounding boxes cut out of the slope.tiff image) and creates a feature in our input vector; b) reads in all the soil, harvest, field and weather data via VPN from t-kartor service; c) processes all data from part b to extract spatial and temporal features and stores them into the input vector dataframe; d) loads the images and bands already stored into the subdirectories e) processes these and extract spatial and temporal features which are also stored into the input vector dataframe. A coorelation matrix is also created between the input features.
+
+Once all of the input vector dataframe has been built the training starts. This is done with decision trees using a k-fold method. Subsequently SHAP importance values are produced and a mean absolute SHAP values is computed among some 260 features.
+
+![SHAP value](shap_bar_plot1.jpg?raw=true)
+![Mean Absolute of SHAP](shap_bar_plot2.jpg?raw=true)
+
+
 The dates used in the current implementation of the algorithm begin at seed data (the year before) until harvest date. 
 Thus weather grouping is performed based on the seasons which begin from seed date -> 1st Nov year before + 15Marh->midsummer + midsummer -> max harvest date
 Currently the code allows the used to choose to group the above automatically to daily, weekly, monthly or seasonal grouping in the final input vector. This is achieved simply by changing the hyperparameters to, respectively, "d", "w", "m" or "s". Instructions are included in the file.
 
-#### Note: extensive descriptions are provided within each cell of the notebook files. So specific information of what is done can be found there.
