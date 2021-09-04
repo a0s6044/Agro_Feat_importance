@@ -16,7 +16,7 @@ This file should run 4th after running all the files listed below.
   <img src="images/harv_distr.png" width="200" height="200" /> 
 </p>
 
-<h6>Fig. (Left) Schematic of some (see Sentinel 2 later below) of the input data in time and space.<br> 
+<h6>Fig. (Left) Schematic explaning the relationships in time and space between some (see Sentinel 2 later below) of the input data.<br> 
     (Right) Harvest distribution for Hostvete for fields in Heddinge, Sweden 2019. Horizontal axis is showing production of hostvete. Vertical axis is showing how many locations (input locations in our region of interest) produced that much hostvete. We see for instance that some (very few) fields produced as much as 16 hostvete.</h6>
 
 In the current version of the file we load all soil, field, year and weather data for all fields in Heddinge and predict the harvest for Hostvete for these field during a single year for which we are provided with data. The data we had included any of the years: 2017, 2018, 2019 or 2020. In this particular version of the algorithm we categorize the harvest data - this however is not necessary. Since we are interested to predict harvest then it would be good to see what is the distribution of the item we are trying to predict. The hostvete harvest data in this example has a distribution which can be seen below (for 2019).
