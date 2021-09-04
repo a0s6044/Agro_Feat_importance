@@ -25,6 +25,13 @@ The dates used in the current implementation of the algorithm begin at seed data
 Thus weather grouping is performed based on the seasons which begin from seed date -> 1st Nov year before + 15 March -> midsummer + midsummer -> max harvest date.
 Currently the code allows the used to choose to group the above automatically to daily, weekly, monthly or seasonal grouping in the final input vector. This is achieved simply by changing the hyperparameters to, respectively, "d", "w", "m" or "s". Instructions are included in the file.
 
+Cloud cleaning is also performed and linear interpolation is used when clouds made the data not possible to use in the case of the Sentinel 2 data.
+
+<p float="left">
+  <img src="images/cloud_RGB.png" width="150" />
+  <img src="images/cloud_mask.png" width="150" /> 
+</p>
+<h6>Fig. Cloud cover example (RGB bands). Cloud mask computed for later processing of the same image as above. Heddinge, Sweden. </h6>
 
 The above time and spatial data specifications can easily be extended to much larger regions or much larger timeframes. In previous versions of the file I tested a time frame of 4 years for a specific crop (instead of the current implementation of one year) with comparable results in terms of accuracy of prediction.  Clearly the overall time to upload and process the algorithm increased linearly with the number of data (training was very fast).
 
