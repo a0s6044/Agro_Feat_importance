@@ -25,14 +25,6 @@ The dates used in the current implementation of the algorithm begin at seed data
 Thus weather grouping is performed based on the seasons which begin from seed date -> 1st Nov year before + 15 March -> midsummer + midsummer -> max harvest date.
 Currently the code allows the used to choose to group the above automatically to daily, weekly, monthly or seasonal grouping in the final input vector. This is achieved simply by changing the hyperparameters to, respectively, "d", "w", "m" or "s". Instructions are included in the file.
 
-Cloud cleaning is also performed and linear interpolation is used when clouds made the data not possible to use in the case of the Sentinel 2 data.
-
-<p float="left">
-  <img src="images/cloud_RGB.png" width="150" />
-  <img src="images/cloud_mask.png" width="150" /> 
-</p>
-<h6>Fig. Cloud cover example (RGB bands). Cloud mask computed for later processing of the same image as above. Heddinge, Sweden. </h6>
-
 The above time and spatial data specifications can easily be extended to much larger regions or much larger timeframes. In previous versions of the file I tested a time frame of 4 years for a specific crop (instead of the current implementation of one year) with comparable results in terms of accuracy of prediction.  Clearly the overall time to upload and process the algorithm increased linearly with the number of data (training was very fast).
 
 ## Order of files to be run for processing the data and subsequent training
@@ -88,7 +80,19 @@ e) processes these and extract spatial and temporal features which are also stor
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/ndviwithcloudclean.png" width="700" height="200">
 <h6>Fig. During processing we also observe the NDVI averaged over space for each time point. To fill in the gaps from throwing out too clowdy data we perform linear Interpolation. </h6>
 
-A coorelation matrix is also created between the input features.
+Cloud cleaning is performed and linear interpolation is used when clouds made the data not possible to use. Our hyper-parameter here is 80% or above, in terms of cloud coverage, implies we had to throw away that data.
+
+<p float="left">
+  <img src="images/cloud_RGB.png" width="150" />
+  <img src="images/cloud_mask.png" width="150" /> 
+</p>
+<h6>Fig. Cloud cover example (RGB bands). Cloud mask computed for later processing of the same image as above. Heddinge, Sweden. </h6>
+
+If below 80% then the linear interpolation (in time) is implemented to patch-up the missing pixels.
+
+## Input data correlation
+
+A correlation matrix is also created between the input features.
 
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/coorel1.png" width="500" height="500">
 <h6>Fig. Feature correlations. Note that in each feature s_ and the h_ indicates whether the data originaed from the soil database or the harvest database.</h6>
