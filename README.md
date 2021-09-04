@@ -91,7 +91,7 @@ A coorelation matrix is also created between the input features.
 Once all of the input vector dataframe has been built the training starts. This is done with decision trees using a k-fold method. As you will see in the files a gradient boosting method is mainly implemented. A number of classic ML metrics are also computed,
 
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/accuracy_F1.png" width="200" height="200">
-<h6>Fig. Metrics computed indicate a good enough accuracy for several categories. The average F1 was 82% for this data. </h6>
+<h6>Fig. Metrics computed show good accuracy for several categories. The average F1 was 82% for this data. </h6>
 
 ## Feature Importance
 
