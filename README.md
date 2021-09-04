@@ -1,6 +1,6 @@
 # Feature Importance and Harvest Prediction in Agriculture 
 
-<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/bb_hed_fields.png" width="700" height="500">
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/rgbHeddinge.png" width="500" height="400">
 <h6>Fig. Overview of fields to be analyzed. Heddinge, Sweden 2019. </h6>
 
 
