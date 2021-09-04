@@ -20,6 +20,12 @@ In the current version of the file we load all soil, field, year and weather dat
 
 With the above input requirements, the actual run time which includes loading and processing all data as well as training can be 1 hour for a region like Heddinge. That time estimate includes running all 4 files (see below) needed for the data processing. The training time itself is fast and may be as little at 2 minutes (in a 56 core machine - Intel® Xeon(R) CPU E5-2697 v3 @ 2.60GHz × 56) due to the parallel processing.
 
+
+The dates used in the current implementation of the algorithm begin at seed data (the year before) until harvest date. 
+Thus weather grouping is performed based on the seasons which begin from seed date -> 1st Nov year before + 15 March -> midsummer + midsummer -> max harvest date.
+Currently the code allows the used to choose to group the above automatically to daily, weekly, monthly or seasonal grouping in the final input vector. This is achieved simply by changing the hyperparameters to, respectively, "d", "w", "m" or "s". Instructions are included in the file.
+
+
 The above time and spatial data specifications can easily be extended to much larger regions or much larger timeframes. In previous versions of the file I tested a time frame of 4 years for a specific crop (instead of the current implementation of one year) with comparable results in terms of accuracy of prediction.  Clearly the overall time to upload and process the algorithm increased linearly with the number of data (training was very fast).
 
 ## Order of files to be run for processing the data and subsequent training
@@ -103,7 +109,4 @@ Subsequently SHAP importance values are produced and a mean absolute SHAP values
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/shap_bar_plot2.jpg" width="400" height="200">
 <h6>Fig. Mean Absolute of SHAP. </h6>
 
-The dates used in the current implementation of the algorithm begin at seed data (the year before) until harvest date. 
-Thus weather grouping is performed based on the seasons which begin from seed date -> 1st Nov year before + 15Marh->midsummer + midsummer -> max harvest date.
-Currently the code allows the used to choose to group the above automatically to daily, weekly, monthly or seasonal grouping in the final input vector. This is achieved simply by changing the hyperparameters to, respectively, "d", "w", "m" or "s". Instructions are included in the file.
-
+## This is work in progress.... so still more to come :) 
