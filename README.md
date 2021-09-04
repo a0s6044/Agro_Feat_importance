@@ -36,6 +36,9 @@ We now outline the work-flow for this project.
 
 We first need to produce bounding boxes around all the soil coordinates provided in the chosen region (e.g. Heddinge). This is done with file storeSoilCenters.ipynb. 
 
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/centers.png" width="200" height="200">
+<h4>Fig. Sample of soil coordinates from Heddinge, Sweden. </h4>
+
 The resulting file of soil coordinate centers is then used by the file cut_out_bb.py to cut out small bounding boxes from the image file slope.tiff. All these bounding boxes are stored in individual numpy arrays for later processing. 
 
 Then file 3, downSent2.ipynb is run in order to download Sentinel 2 data from the region of interest which are then stored in newly created subdirectories for later processing. Finaly file 4, inpVecVPN_Sent2_Aug31.ipynb is run which does all the data processing and eventual trainding. Specifically it: a) reads the file centers.txt containing the soil coordinates and uploads the numpy arrays (i.e. the bounding boxes cut out of the slope.tiff image) and creates a feature in our input vector; b) reads in all the soil, harvest, field and weather data via VPN from t-kartor service; c) processes all data from part b to extract spatial and temporal features and stores them into the input vector dataframe; d) loads the images and bands already stored into the subdirectories e) processes these and extract spatial and temporal features which are also stored into the input vector dataframe. A coorelation matrix is also created between the input features.
