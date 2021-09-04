@@ -43,10 +43,12 @@ We first need to produce bounding boxes around all the soil coordinates provided
 The resulting file of soil coordinate centers is then used by the file cut_out_bb.py to cut out small bounding boxes from the image file slope.tiff. All these bounding boxes are stored in individual numpy arrays for later processing. 
 
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/bb_cut_out.png" width="400" height="100">
-<h6>Fig. Pixel values for a random bounding box cut-out. </h6>
+<h6>Fig. Pixel values from the slope.tiff file for a random bounding box cut-out. </h6>
 
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/centerpng.png" width="20" height="20">
-<h6>Fig. Pixel image of a random bounding box cut-out. </h6>
+<h6>Fig. Pixel image from the slope.tiff file of a random bounding box cut-out. </h6>
+
+Clearly based on the above idea any other file can be included and processed in the dame way in order to later be a part of the input vector used in training (see later below).
 
 Then file 3, downSent2.ipynb is run in order to download Sentinel 2 data from the region of interest which are then stored in newly created subdirectories for later processing. 
 
