@@ -84,7 +84,7 @@ e) processes these and extract spatial and temporal features which are also stor
 A coorelation matrix is also created between the input features.
 
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/coorel1.png" width="500" height="500">
-<h6>Fig. Feature correlations. </h6>
+<h6>Fig. Feature correlations. Note that in each feature s_ and the h_ indicates whether the data originaed from the soil database or the harvest database.</h6>
 
 ## Training Decision Trees
 
