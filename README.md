@@ -57,21 +57,23 @@ Clearly based on the above idea any other file can be included and processed in 
 
 Then file 3, downSent2.ipynb is run in order to download Sentinel 2 data from the region of interest which are then stored in newly created subdirectories for later processing. 
 
-<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/Band9Heddinge.png" width="400" height="400">
-<h6>Example of one of the 10 downloaded bands from Sentinel 2. This is band 9 for the Heddinge fields, Sweden 2019. </h6>
+<p float="left">
+  <img src="images/Band9Heddinge.png" width="400" height="400" />
+  <img src="images/meanNDVIHeddinge.png" width="400" height="400" /> 
+</p>
 
-<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/meanNDVIHeddinge.png" width="400" height="400">
-<h6>Fig. Some of the indexes computed. In this example we present mean NDVI over all time requested from Sentinel 2 in order to observe any spatial changes in NDVI for the Heddinge fields, Sweden 2019. </h6>
+<h6>Fig. (Left) Example of one of the 10 downloaded bands from Sentinel 2. This is band 9 for the Heddinge fields. <br> (Right) In this example we present mean NDVI over all time requested from Sentinel 2 in order to observe any spatial changes in NDVI for the Heddinge fields, Sweden 2019.</h6>
 
 Finaly file 4, inpVecVPN_Sent2_Aug31.ipynb is run which does all the data processing and eventual training. Specifically it: 
 a) reads the previously created file centers.txt based on the soil coordinates and uploads the corresponding slope data as numpy arrays (i.e. the bounding boxes cut out of the slope.tiff image - see above) and creates a feature in our input vector; 
 b) reads in all the soil, harvest, field and weather data via VPN from t-kartor service; 
 
-<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/before_clean.png" width="300" height="300">
-<h6>Fig. Soil and harvest data happen to not coinside in general. Heddinge fields, Sweden. </h6>
+<p float="left">
+  <img src="images/before_clean.png" width="350" />
+  <img src="images/after_clean.png" width="350" /> 
+</p>
 
-<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/after_clean.png" width="300" height="300">
-<h6>Fig. So we removed any such data that was too far away from each other. After clean up we therefore obtain the figure above for the Heddinge fields. </h6>
+<h6>Fig. (Left) Soil and harvest data happen to not coinside in general. (Right) We removed any such data that was too far away from each other. After clean up we therefore obtain the figure above for the Heddinge fields. </h6>
 
 c) processes all data from part b to extract spatial and temporal features and stores them into the input vector dataframe; 
 d) loads the images and bands already stored into the subdirectories 
