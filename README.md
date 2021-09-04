@@ -2,7 +2,7 @@
 
 ## Combining Sentinel 2 (all bands + computed indexes), soil, field, weather to predict harvest. 
 
-![Mean Absolute of SHAP](https://github.com/a0s6044/Agro_Feat_importance/main/shap_bar_plot2.jpg?raw=true)
+![Mean Absolute of SHAP](https://github.com/a0s6044/Agro_Feat_importance/shap_bar_plot2.jpg?raw=true)
 
 The end result of these algorithms is to a) predict harvest and b) extract importance of the input features (via SHAP) used towards that prediction. A coorelation matrix for features used is also computated. The training is based on decision trees currently. 
 
