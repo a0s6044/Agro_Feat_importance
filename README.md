@@ -8,25 +8,25 @@
 
 The end result of these algorithms is to a) predict harvest and b) extract importance of the input features (via SHAP) used towards that prediction. A coorelation matrix for features used is also computated. The training is based on decision trees currently. 
 
-The input vector construction (seen in the Figure below) is based on farmer data provided/collected related to soil, field info and harvest. The current version of the files requires the user to choose a crop  (e.g. Hostvete) for all fields in a user chosen region (i.e. Heddinge). The data timeframe starts at seeding the year before and ends at harvest for a given year. Data is also included from a relevant slope.tiff image as well as all 13 bands from Sentinel 2 over the same exact time frame.
+<img src="images/inp_vec.png" width="250" height="250" />
+<h6>Fig. Schematic explaning the relationships in time and space between some (see Sentinel 2 later below) of the input data.</h6>
+The input vector construction, seen in the Figure above, is based on farmer data provided/collected related to soil, field info and harvest. The current version of the files requires the user to choose a crop  (e.g. Hostvete) for all fields in a user chosen region (i.e. Heddinge). The data timeframe starts at seeding the year before and ends at harvest for a given year. Data is also included from a relevant slope.tiff image as well as all 13 bands from Sentinel 2 over the same exact time frame.
 This file should run 4th after running all the files listed below.
 
 <p float="left">
-  <img src="images/inp_vec.png" width="250" height="250" />
   <img src="images/harv_distr.png" width="200" height="200" /> 
 </p>
-
-<h6>Fig. (Left) Schematic explaning the relationships in time and space between some (see Sentinel 2 later below) of the input data.<br> 
-    (Right) Harvest distribution for Hostvete for fields in Heddinge, Sweden 2019. Horizontal axis is showing production of hostvete. Vertical axis is showing how many locations (input locations in our region of interest) produced that much hostvete. We see for instance that some (very few) fields produced as much as 16 hostvete.</h6>
+<h6>Fig. Harvest distribution for Hostvete for fields in Heddinge, Sweden 2019. Horizontal axis is showing production of hostvete. Vertical axis is showing how many locations (input locations in our region of interest) produced that much hostvete. We see for instance that some (very few) fields produced as much as 16 hostvete.</h6>
 
 In the current version of the file we load all soil, field, year and weather data for all fields in Heddinge and predict the harvest for Hostvete for these field during a single year for which we are provided with data. The data we had included any of the years: 2017, 2018, 2019 or 2020. In this particular version of the algorithm we categorize the harvest data - this however is not necessary. Since we are interested to predict harvest then it would be good to see what is the distribution of the item we are trying to predict. The hostvete harvest data in this example has a distribution which can be seen below (for 2019).
 
 The approach followed, has been tested and is general enough to be possible to apply world-wide when just the Sentinel 2 is used. In Sweden we have the extra benefit of the actual data from farmers which enriched our localized information about soil and harvest conditions.
+<img align="left"  src="images/bb_Sweden.png" width="100" height="300" />
+To expedite the processing related to the satelite data we cut out the Swedish map into coordinate boxes (figure to the left) in order to later instruct Sentinel 2 to only provide us with data from a specific few such box coordinates (instead of all the data for Sweden).
+  
 
-To expedite the processing related to the satelite data we cut out the Swedish map into coordinate boxes in order to later instruct Sentinel 2 to only provide us with data from a specific few such box coordinates (instead of all the data for Sweden).
-<img align="right" src="images/pick3gridsSouthernSweden.png" width="200" height="200" /> 
 In the Figure to the right we see the specific 3 coordinate boxes corresponding to the coordinates of the fields from the region of Heddinge.
-
+<img align="right"  src="images/pick3gridsSouthernSweden.png" width="200" height="250" /> 
 With all of the above input requirements, the actual run time which includes loading and processing all data as well as training can be 1 hour for a region like Heddinge. That time estimate includes running all 4 files (see below) needed for the data processing. The training time itself is fast and may be as little at 2 minutes (in a 56 core machine - Intel® Xeon(R) CPU E5-2697 v3 @ 2.60GHz × 56) due to the parallel processing.
 
 
