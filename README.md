@@ -73,14 +73,15 @@ b) reads in all the soil, harvest, field and weather data via VPN from t-kartor 
   <img src="images/after_clean.png" width="350" /> 
 </p>
 
-<h6>Fig. (Left) Soil and harvest data happen to not coinside in general. (Right) We removed any such data that was too far away from each other. After clean up we therefore obtain the figure above for the Heddinge fields. </h6>
+<h6>Fig. (Left) Soil and harvest data happen to not coinside in general. <br>
+    (Right) We removed any such data that was too far away from each other. After clean up we therefore obtain the figure above for the Heddinge fields. </h6>
 
 c) processes all data from part b to extract spatial and temporal features and stores them into the input vector dataframe; 
 d) loads the images and bands already stored into the subdirectories 
 e) processes these and extract spatial and temporal features which are also stored into the input vector dataframe. 
 
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/ndviwithcloudclean.png" width="700" height="200">
-<h6>Fig. During processing we also observe the NDVI averaged over space for each time point. To fill in the gaps from throwing out too clowdy data we perform linear Interpolation. </h6>
+<h6>Fig. During processing we also observe the NDVI averaged over space for each time point. To fill in the gaps from throwing out too clowdy data we perform linear Interpolation. Data from Heddinge, Sweden Nov. 2018-Aug. 2019.</h6>
 
 Cloud cleaning is performed and linear interpolation is used when clouds made the data not possible to use. Our hyper-parameter here is 80% or above, in terms of cloud coverage, implies we had to throw away that data.
 
