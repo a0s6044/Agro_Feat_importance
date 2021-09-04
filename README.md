@@ -32,4 +32,4 @@ The dates used in the current implementation of the algorithm begin at seed data
 Thus weather grouping is performed based on the seasons which begin from seed date -> 1st Nov year before + 15Marh->midsummer + midsummer -> max harvest date
 Currently the code allows the used to choose to group the above automatically to daily, weekly, monthly or seasonal grouping in the final input vector. This is achieved simply by changing the hyperparameters to, respectively, "d", "w", "m" or "s". Instructions are included in the file.
 
-## Note: extensive descriptions are provided within each cell of the notebook files. So specific information of what is done can be found there.
+#### Note: extensive descriptions are provided within each cell of the notebook files. So specific information of what is done can be found there.
