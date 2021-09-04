@@ -4,7 +4,7 @@
 <h4>Fig. Overview of fields to be analyzed. Heddinge, Sweden 2019. </h4>
 
 
-### Combining Sentinel 2 (all bands + computed indexes), soil, field, weather to predict harvest. 
+### Combining Sentinel 2 (all bands + computed indexes), slope images, soil, field, weather to predict harvest. 
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/bb_hed_fields.png" width="900" height="700">
 ![SHAP value](shap_bar_plot1.jpg?raw=true){:height="50%" width="50%"}
 
