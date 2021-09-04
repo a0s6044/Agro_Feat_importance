@@ -61,22 +61,40 @@ a) reads the previously created file centers.txt based on the soil coordinates a
 b) reads in all the soil, harvest, field and weather data via VPN from t-kartor service; 
 c) processes all data from part b to extract spatial and temporal features and stores them into the input vector dataframe; 
 d) loads the images and bands already stored into the subdirectories 
-e) processes these and extract spatial and temporal features which are also stored into the input vector dataframe. A coorelation matrix is also created between the input features.
+e) processes these and extract spatial and temporal features which are also stored into the input vector dataframe. 
+
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/ndviwithcloudclean.png" width="700" height="200">
+<h6>Fig. During processing we also observe the NDVI averaged over space for each time point. To fill in the gaps from throwing out too clowdy data we perform linear Interpolation. </h6>
+
+A coorelation matrix is also created between the input features.
+
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/coorel1.png" width="500" height="500">
+<h6>Fig. Feature correlations. </h6>
+
+## Training Decision Trees
 
 Once all of the input vector dataframe has been built the training starts. This is done with decision trees using a k-fold method. A number of classic ML metrics are also computed,
 
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/accuracy_F1.png" width="200" height="200">
 <h6>Fig. Metrics. </h6>
 
+## Feature Importance
+
+Feature importance comparisons are now performed.
+
+
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/feat_imp_Aug22.png " width="300" height="300">
+<h6>Fig. Feature importance. </h6>
+
 Subsequently SHAP importance values are produced and a mean absolute SHAP values is computed among some 260 features.
 
-<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/shap_bar_plot1.jpg" width="400" height="400">
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/shap_bar_plot1.jpg" width="400" height="200">
 <h6>Fig. SHAP value. </h6>
 
-<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/shap_bar_plot2.jpg" width="400" height="400">
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/shap_bar_plot2.jpg" width="400" height="200">
 <h6>Fig. Mean Absolute of SHAP. </h6>
 
 The dates used in the current implementation of the algorithm begin at seed data (the year before) until harvest date. 
-Thus weather grouping is performed based on the seasons which begin from seed date -> 1st Nov year before + 15Marh->midsummer + midsummer -> max harvest date
+Thus weather grouping is performed based on the seasons which begin from seed date -> 1st Nov year before + 15Marh->midsummer + midsummer -> max harvest date.
 Currently the code allows the used to choose to group the above automatically to daily, weekly, monthly or seasonal grouping in the final input vector. This is achieved simply by changing the hyperparameters to, respectively, "d", "w", "m" or "s". Instructions are included in the file.
 
