@@ -99,7 +99,7 @@ Feature importance comparisons are now performed.
 
 
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/feat_imp_Aug22.png " width="300" height="300">
-<h6>Fig. Feature importance. </h6>
+<h6>Fig. Feature importance. Note: "B" indicates band, "NORM" and "NDVI" or "NDWI" are the indexes computed. Also note that each feature indicates which date it originated from. </h6>
 
 Subsequently SHAP importance values are produced and a mean absolute SHAP values is computed among some 260 features.
 
