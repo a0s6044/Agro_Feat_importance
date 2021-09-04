@@ -1,19 +1,22 @@
 # Feature Importance and Harvest Prediction in Agriculture 
 
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/bb_hed_fields.png" width="700" height="500">
-<h3>Fig. Overview of fields to be analyzed. Heddinge, Sweden 2019. </h3>
+<h6>Fig. Overview of fields to be analyzed. Heddinge, Sweden 2019. </h6>
 
 
 ### Combining Sentinel 2 (all bands + computed indexes), slope images, soil, field, weather to predict harvest. 
 
 The end result of these algorithms is to a) predict harvest and b) extract importance of the input features (via SHAP) used towards that prediction. A coorelation matrix for features used is also computated. The training is based on decision trees currently. 
 
-The method works and can be applied world-wide when just the Sentinel 2 is used. In Sweden we have the extra benefit of the actual data from farmers which further localized information about soil and harvest conditions.
+The approach followed, has been tested and is general enough to be possible to apply world-wide when just the Sentinel 2 is used. In Sweden we have the extra benefit of the actual data from farmers which further localized information about soil and harvest conditions.
 
 The input vector construction is based on farmer data provided/collected related to soil, field info and harvest. The current version of the files requires the user to choose a crop  (e.g. Hostvete) for all fields in a user chosen region (i.e. Heddinge). The data timeframe starts at seeding the year before and ends at harvest for a given year. Data is also included from a relevant slope.tiff image as well as all 13 bands from Sentinel 2 over the same exact time frame.
 This file should run 4th after running all the files listed below.
 
-In the current version of the file we load all soil, field, year and weather data for all fields in Heddinge and predict the harvest for Hostvete for these field during a single year for which we are provided with data. The data we had included any of the years: 2017, 2018, 2019 or 2020
+In the current version of the file we load all soil, field, year and weather data for all fields in Heddinge and predict the harvest for Hostvete for these field during a single year for which we are provided with data. The data we had included any of the years: 2017, 2018, 2019 or 2020. In this particular version of the algorithm we categorize the harvest data - this however is not necessary. Since we are interested to predict harvest then it would be good to see what is the distribution of the item we are trying to predict. The hostvete harvest data in this example has a distribution which can be seen below (for 2019).
+
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/harv_distr.png" width="200" height="200">
+<h7>Fig. Harvest distribution for Hostvete for fields in Heddinge, Sweden 2019. Horizontal axis is showing production of hostvete. Vertical axis is showing how many locations (input locations in our region of interest) produced that much hostvete. We see for instance that some (very few) fields produced as much as 16 hostvete. </h7>
 
 With the above input requirements, the actual run time which includes loading and processing all data as well as training can be 1 hour for a region like Heddinge. That time estimate includes running all 4 files (see below) needed for the data processing. The training time itself is fast and may be as little at 2 minutes (in a 56 core machine - Intel® Xeon(R) CPU E5-2697 v3 @ 2.60GHz × 56) due to the parallel processing.
 
@@ -35,28 +38,43 @@ We now outline the work-flow for this project.
 We first need to produce bounding boxes around all the soil coordinates provided in the chosen region (e.g. Heddinge). This is done with file storeSoilCenters.ipynb. 
 
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/centers.png" width="200" height="200">
-<h4>Fig. Sample of soil coordinates from Heddinge, Sweden. </h4>
+<h6>Fig. Sample of soil coordinates from Heddinge, Sweden. </h6>
 
 The resulting file of soil coordinate centers is then used by the file cut_out_bb.py to cut out small bounding boxes from the image file slope.tiff. All these bounding boxes are stored in individual numpy arrays for later processing. 
 
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/bb_cut_out.png" width="400" height="100">
-<h4>Fig. Pixel values for a random bounding box cut-out. </h4>
-<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/centerpng.png" width="20" height="20">
-<h4>Fig. Pixel image of a random bounding box cut-out. </h4>
+<h6>Fig. Pixel values for a random bounding box cut-out. </h6>
 
-Then file 3, downSent2.ipynb is run in order to download Sentinel 2 data from the region of interest which are then stored in newly created subdirectories for later processing. 
-<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/bb_cut_out.png" width="400" height="100">
-<h5>Fig. Pixel values for a random bounding box cut-out. </h5>
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/centerpng.png" width="20" height="20">
 <h6>Fig. Pixel image of a random bounding box cut-out. </h6>
 
-Finaly file 4, inpVecVPN_Sent2_Aug31.ipynb is run which does all the data processing and eventual trainding. Specifically it: a) reads the file centers.txt containing the soil coordinates and uploads the numpy arrays (i.e. the bounding boxes cut out of the slope.tiff image) and creates a feature in our input vector; b) reads in all the soil, harvest, field and weather data via VPN from t-kartor service; c) processes all data from part b to extract spatial and temporal features and stores them into the input vector dataframe; d) loads the images and bands already stored into the subdirectories e) processes these and extract spatial and temporal features which are also stored into the input vector dataframe. A coorelation matrix is also created between the input features.
+Then file 3, downSent2.ipynb is run in order to download Sentinel 2 data from the region of interest which are then stored in newly created subdirectories for later processing. 
 
-Once all of the input vector dataframe has been built the training starts. This is done with decision trees using a k-fold method. Subsequently SHAP importance values are produced and a mean absolute SHAP values is computed among some 260 features.
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/Band9Heddinge.png" width="400" height="400">
+<h6>Example of one of the 10 downloaded bands from Sentinel 2. This is band 9 for the Heddinge fields, Sweden 2019. </h6>
 
-![SHAP value](shap_bar_plot1.jpg?raw=true)
-![Mean Absolute of SHAP](shap_bar_plot2.jpg?raw=true)
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/meanNDVIHeddinge.png" width="400" height="400">
+<h6>Fig. Some of the indexes computed. In this example we present mean NDVI over all time requested from Sentinel 2 in order to observe any spatial changes in NDVI for the Heddinge fields, Sweden 2019. </h6>
 
+Finaly file 4, inpVecVPN_Sent2_Aug31.ipynb is run which does all the data processing and eventual trainding. Specifically it: 
+a) reads the previously created file centers.txt based on the soil coordinates and uploads the corresponding slope data as numpy arrays (i.e. the bounding boxes cut out of the slope.tiff image - see above) and creates a feature in our input vector; 
+b) reads in all the soil, harvest, field and weather data via VPN from t-kartor service; 
+c) processes all data from part b to extract spatial and temporal features and stores them into the input vector dataframe; 
+d) loads the images and bands already stored into the subdirectories 
+e) processes these and extract spatial and temporal features which are also stored into the input vector dataframe. A coorelation matrix is also created between the input features.
+
+Once all of the input vector dataframe has been built the training starts. This is done with decision trees using a k-fold method. A number of classic ML metrics are also computed,
+
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/accuracy_F1.png" width="200" height="200">
+<h6>Fig. Metrics. </h6>
+
+Subsequently SHAP importance values are produced and a mean absolute SHAP values is computed among some 260 features.
+
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/shap_bar_plot1.jpg" width="400" height="400">
+<h6>Fig. SHAP value. </h6>
+
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/shap_bar_plot2.jpg" width="400" height="400">
+<h6>Fig. Mean Absolute of SHAP. </h6>
 
 The dates used in the current implementation of the algorithm begin at seed data (the year before) until harvest date. 
 Thus weather grouping is performed based on the seasons which begin from seed date -> 1st Nov year before + 15Marh->midsummer + midsummer -> max harvest date
