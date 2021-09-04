@@ -73,7 +73,7 @@ A coorelation matrix is also created between the input features.
 
 ## Training Decision Trees
 
-Once all of the input vector dataframe has been built the training starts. This is done with decision trees using a k-fold method. A number of classic ML metrics are also computed,
+Once all of the input vector dataframe has been built the training starts. This is done with decision trees using a k-fold method. As you will see in the files a gradient boosting method is mainly implemented. A number of classic ML metrics are also computed,
 
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/accuracy_F1.png" width="200" height="200">
 <h6>Fig. Metrics. </h6>
