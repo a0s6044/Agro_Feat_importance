@@ -1,8 +1,13 @@
 # Feature Importance and Harvest Prediction in Agriculture 
 
-![test image size](/Images/post-bg-2015.jpg){:class="img-responsive"}
+<h4>Overview of fields to be analyzed. Heddinge, Sweden 2019
+</h4>
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/bb_hed_fields.png" width="700" height="500">
 
-## Combining Sentinel 2 (all bands + computed indexes), soil, field, weather to predict harvest. 
+
+
+### Combining Sentinel 2 (all bands + computed indexes), soil, field, weather to predict harvest. 
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/bb_hed_fields.png" width="900" height="700">
 ![SHAP value](shap_bar_plot1.jpg?raw=true){:height="50%" width="50%"}
 
 The end result of these algorithms is to a) predict harvest and b) extract importance of the input features (via SHAP) used towards that prediction. A coorelation matrix for features used is also computated. The training is based on decision trees currently. 
