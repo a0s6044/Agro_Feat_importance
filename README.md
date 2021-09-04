@@ -2,6 +2,8 @@
 
 ## Combining Sentinel 2 (all bands + computed indexes), soil, field, weather to predict harvest. 
 
+![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+
 The end result of these algorithms is to a) predict harvest and b) extract importance of the input features (via SHAP) used towards that prediction. A coorelation matrix for features used is also computated. The training is based on decision trees currently. 
 
 The method works and can be applied world-wide when just the Sentinel 2 is used. In Sweden we have the extra benefit of the actual data from farmers which further localized information about soil and harvest conditions.
