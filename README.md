@@ -1,12 +1,10 @@
 # Feature Importance and Harvest Prediction in Agriculture 
 
 <img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/bb_hed_fields.png" width="700" height="500">
-<h4>Fig. Overview of fields to be analyzed. Heddinge, Sweden 2019. </h4>
+<h3>Fig. Overview of fields to be analyzed. Heddinge, Sweden 2019. </h3>
 
 
 ### Combining Sentinel 2 (all bands + computed indexes), slope images, soil, field, weather to predict harvest. 
-<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/bb_hed_fields.png" width="900" height="700">
-![SHAP value](shap_bar_plot1.jpg?raw=true){:height="50%" width="50%"}
 
 The end result of these algorithms is to a) predict harvest and b) extract importance of the input features (via SHAP) used towards that prediction. A coorelation matrix for features used is also computated. The training is based on decision trees currently. 
 
@@ -41,7 +39,18 @@ We first need to produce bounding boxes around all the soil coordinates provided
 
 The resulting file of soil coordinate centers is then used by the file cut_out_bb.py to cut out small bounding boxes from the image file slope.tiff. All these bounding boxes are stored in individual numpy arrays for later processing. 
 
-Then file 3, downSent2.ipynb is run in order to download Sentinel 2 data from the region of interest which are then stored in newly created subdirectories for later processing. Finaly file 4, inpVecVPN_Sent2_Aug31.ipynb is run which does all the data processing and eventual trainding. Specifically it: a) reads the file centers.txt containing the soil coordinates and uploads the numpy arrays (i.e. the bounding boxes cut out of the slope.tiff image) and creates a feature in our input vector; b) reads in all the soil, harvest, field and weather data via VPN from t-kartor service; c) processes all data from part b to extract spatial and temporal features and stores them into the input vector dataframe; d) loads the images and bands already stored into the subdirectories e) processes these and extract spatial and temporal features which are also stored into the input vector dataframe. A coorelation matrix is also created between the input features.
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/bb_cut_out.png" width="400" height="100">
+<h4>Fig. Pixel values for a random bounding box cut-out. </h4>
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/centerpng.png" width="20" height="20">
+<h4>Fig. Pixel image of a random bounding box cut-out. </h4>
+
+Then file 3, downSent2.ipynb is run in order to download Sentinel 2 data from the region of interest which are then stored in newly created subdirectories for later processing. 
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/bb_cut_out.png" width="400" height="100">
+<h5>Fig. Pixel values for a random bounding box cut-out. </h5>
+<img src="https://github.com/a0s6044/Agro_Feat_importance/blob/main/images/centerpng.png" width="20" height="20">
+<h6>Fig. Pixel image of a random bounding box cut-out. </h6>
+
+Finaly file 4, inpVecVPN_Sent2_Aug31.ipynb is run which does all the data processing and eventual trainding. Specifically it: a) reads the file centers.txt containing the soil coordinates and uploads the numpy arrays (i.e. the bounding boxes cut out of the slope.tiff image) and creates a feature in our input vector; b) reads in all the soil, harvest, field and weather data via VPN from t-kartor service; c) processes all data from part b to extract spatial and temporal features and stores them into the input vector dataframe; d) loads the images and bands already stored into the subdirectories e) processes these and extract spatial and temporal features which are also stored into the input vector dataframe. A coorelation matrix is also created between the input features.
 
 Once all of the input vector dataframe has been built the training starts. This is done with decision trees using a k-fold method. Subsequently SHAP importance values are produced and a mean absolute SHAP values is computed among some 260 features.
 
