@@ -7,7 +7,7 @@
 ### Combining Sentinel 2 (all bands + computed indexes), slope images, soil, field, weather to predict harvest. 
 
 <img align="right"  src="images/index.png" width="200" height="500" />
-The end result of the included algorithms in this repository is to a) predict harvest and b) extract importance of the input features (via SHAP) used towards that prediction. A coorelation matrix for features used is also computated. The training is based on decision trees currently. 
+The end result of the included algorithms in this repository is to a) predict harvest and b) extract importance of the input features (via SHAP) used towards that prediction. A coorelation matrix for features used is also computed. The training is based on decision trees currently. 
 <img align="left" src="images/inp_vec.png" width="250" height="250" />
 The input vector construction, seen in the Figure to the left, is based on farmer data provided/collected related to soil, field info and harvest. The provided schematic outlines the relationships in time and space between some (see Sentinel 2 later below) of the input data. The current version of the files requires the user to choose a crop  (e.g. Hostvete) for all fields in a user chosen region (i.e. Heddinge). The data timeframe starts at seeding the year before and ends at harvest for a given year. Data is also included from a relevant slope.tiff image as well as all 13 bands from Sentinel 2 over the same exact time frame.
 This file should run 4th after running all the files listed below.
