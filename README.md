@@ -68,7 +68,7 @@ Then file 3, downSent2.ipynb is run in order to download Sentinel 2 data from th
 
 <h6>Fig. (Left) Example of one of the 10 downloaded bands from Sentinel 2. This is band 9 for the Heddinge fields. <br> (Right) In this example we present mean NDVI over all time requested from Sentinel 2 in order to observe any spatial changes in NDVI for the Heddinge fields, Sweden 2019.</h6>
 
-Finaly file 4, inpVecVPN_Sent2_Aug31.ipynb is run which does all the data processing and eventual training. Specifically it: 
+Finally file 4, inpVecVPN_Sent2_Aug31.ipynb is run which does all the data processing and eventual training. Specifically it: 
 a) reads the previously created file centers.txt based on the soil coordinates and uploads the corresponding slope data as numpy arrays (i.e. the bounding boxes cut out of the slope.tiff image - see above) and creates a feature in our input vector; 
 b) reads in all the soil, harvest, field and weather data via VPN from t-kartor service; 
 
